@@ -26,6 +26,10 @@
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 underline">Home</a>
+                        <form action="{{route('logout')}}" method="POST">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Log in</a>
 
@@ -128,5 +132,27 @@
                 </div>
             </div>
         </div>
+        @auth
+            <form action="/user/two-factor-authentication" method="POST">
+                @csrf
+                @if(auth()->user()->two_factor_secret)
+                    Two factor
+                    @method('DELETE')
+                    <div>
+                        {!! auth()->user()->twoFactorQrCodeSvg() !!}
+                    </div>
+                    <div>
+                        @foreach(json_decode(decrypt(auth()->user()->two_factor_recovery_codes)) as $code)
+                            <div>
+                                {{$code}}
+                            </div>
+                        @endforeach
+                    </div>
+                    <button>Disable</button>
+                @else
+                    <button>Enable</button>
+                @endif
+            </form>
+        @endauth
     </body>
 </html>
