@@ -6,6 +6,7 @@
             <div class="grid-x">
                 <auth-component>
                     <form action="{{route('login')}}" method="POST" class="flex-container flex-dir-column">
+                        @csrf
                         <div class="input-container">
                             <label for="email">Your Email</label>
                             <input type="text" name="email" id="email" placeholder="Enter your email">
@@ -13,9 +14,10 @@
                         </div>
                         <div class="input-container">
                             <label for="password">Your Password</label>
-                            <input type="text" name="password" id="password" placeholder="Enter your password">
+                            <input type="password" name="password" id="password" placeholder="Enter your password">
                             <span class="error-message">This field is required</span>
                         </div>
+                        <button type="submit">Login</button>
                     </form>
                 </auth-component>
             </div>
