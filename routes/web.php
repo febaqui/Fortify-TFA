@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/hola', function (){ return view('auth.login');});
+Route::middleware(['auth:web'])->group(function() {
+    Route::get('/hola', function () {
+        return view('hola');
+    });
+    Route::get('/event', function () {
+        $user = User::first();
+
+        $user->notify(new App\Notifications\RealTimeNotification('Hello World'));
+        //event(new App\Events\RealTimeMessage('Hello World'));
+    });
+});
