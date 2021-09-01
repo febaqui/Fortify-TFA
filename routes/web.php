@@ -27,4 +27,8 @@ Route::middleware(['auth:web'])->group(function() {
         $user->notify(new App\Notifications\RealTimeNotification('Hello World'));
         //event(new App\Events\RealTimeMessage('Hello World'));
     });
+
+    Route::get('/chats','ChatController@index')->name('chat.index');
+    Route::get('/messages', 'ChatController@fetchMessages');
+    Route::post('/messages', 'ChatController@sendMessage');
 });

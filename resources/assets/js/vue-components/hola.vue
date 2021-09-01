@@ -1,12 +1,20 @@
 <template>
     <div>
         Adios
+        <div v-if="hola">
+            Lety
+        </div>
     </div>
 </template>
 
 <script>
 export default {
     name: "hola",
+    data(){
+        return {
+            hola:false
+        }
+    },
 
     created() {
 
@@ -19,6 +27,7 @@ export default {
         Echo.private('App.Models.User.1')
         .notification((notification) => {
             console.log(notification.message)
+            this.hola = !this.hola
         })
     }
 }
