@@ -20,3 +20,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('events', function ($user) {
     return true;
 });
+
+Broadcast::channel('chat', function ($user) {
+    return $user;
+});
